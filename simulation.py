@@ -33,6 +33,9 @@ class Simulation:
     def neighbours(self, x, y):
         return [] # Example
     
+    def get_size(self):
+        return (self.n, self.m)
+    
 class Downside(Simulation):
     def neighbours(self, x, y):
         pass # TODO
