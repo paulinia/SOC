@@ -19,12 +19,15 @@ def get_average_data(simul):
     reaches = 0
     sum_steps = 0
     for i in range(num):
-        reaches, sum_steps += reaches_bottom(simul)
+        res = reaches_bottom(simul)
+        reaches, sum_steps = reaches + res[0], sum_steps + res[1]
     return (reaches / num, sum_steps / num)
 
-def get_data_range(n, m, simul):
+def get_data(n, m, simul):
     step = 0.01 # another magic constant
     data = []
-    for p in range(0, 1, step):
+    p = 0
+    while p <= 1:
         data.append(get_average_data(simul(p, n, m)))
+        p += step
     return data

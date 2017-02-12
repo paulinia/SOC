@@ -1,7 +1,7 @@
 from random import random as rand
 
 class Simulation:
-    def __init__(p, n, m):
+    def __init__(self, p, n, m):
         self.n = n
         self.m = m
         self.graph = [[rand() < p for i in range(n)] for j in range(m)]
@@ -24,8 +24,8 @@ class Simulation:
         for x, y in self.in_queue:
             adj = self.neighbours(x, y)
             for X, Y in adj:
-                if !visited[X][Y]:
-                    visited[X][Y] = True
+                if not self.visited[X][Y]:
+                    self.visited[X][Y] = True
                     new.append((X, Y))
         
         self.in_queue = new
@@ -38,4 +38,10 @@ class Simulation:
     
 class Downside(Simulation):
     def neighbours(self, x, y):
-        pass # TODO
+        D = [(0, 1), (1, 0), (-1, 0)]
+        adj = []
+        for dx, dy in D:
+            if dx + x >= 0 and dx + x < self.get_size()[0] and dy + y >= 0 and dy + y < self.get_size()[1]:
+                if self.graph[y + dy][x + dx]:
+                    adj.append((x + dx, y + dy))
+        return adj
