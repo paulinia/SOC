@@ -29,12 +29,12 @@ class Simulation:
                     new.append((X, Y))
         
         self.in_queue = new
-            
+    
     def neighbours(self, x, y):
         return [] # Example
     
     def get_size(self):
-        return (self.n, self.m)
+        return (self.n, self.m) #or rewrite it by yourself
     
 class Downside(Simulation):
     def neighbours(self, x, y):
