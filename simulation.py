@@ -9,9 +9,9 @@ class Simulation:
         self.in_queue = []
         
         for i in range(n):
-            if self.graph[0][i]:
-                self.in_queue.append((0, i))
-                self.visited[0][i] = True
+            if self.graph[i][0]:
+                self.in_queue.append((i, 0))
+                self.visited[i][0] = True
         
     def water_on_pos(self, x, y):
         return self.visited[x][y]
@@ -41,7 +41,7 @@ class Downside(Simulation):
         D = [(0, 1), (1, 0), (-1, 0)]
         adj = []
         for dx, dy in D:
-            if dx + x >= 0 and dx + x < self.get_size()[0] and dy + y >= 0 and dy + y < self.get_size()[1]:
-                if self.graph[y + dy][x + dx]:
+            if dx + x >= 0 and dx + x < self.get_size()[1] and dy + y >= 0 and dy + y < self.get_size()[0]:
+                if self.graph[x + dx][y + dy]:
                     adj.append((x + dx, y + dy))
         return adj

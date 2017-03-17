@@ -2,4 +2,5 @@ import manager
 import simulation
 
 #first try
-print(manager.get_data(10, 10, simulation.Downside))
+data = manager.get_data(50, 50, simulation.Downside);
+print("\n".join([str(dat[0]) for dat in data]))

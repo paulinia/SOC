@@ -14,12 +14,12 @@ def reaches_bottom(simul):
     
     return (0, steps)
 
-def get_average_data(simul):
-    num = 100 # magic constant, number of runs
+def get_average_data(simul, p, n, m):
+    num = 1000 # magic constant, number of runs
     reaches = 0
     sum_steps = 0
     for i in range(num):
-        res = reaches_bottom(simul)
+        res = reaches_bottom(simul(p, n, m))
         reaches, sum_steps = reaches + res[0], sum_steps + res[1]
     return (reaches / num, sum_steps / num)
 
@@ -28,6 +28,6 @@ def get_data(n, m, simul):
     data = []
     p = 0
     while p <= 1:
-        data.append(get_average_data(simul(p, n, m)))
+        data.append(get_average_data(simul, p, n, m))
         p += step
     return data
