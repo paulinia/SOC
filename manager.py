@@ -24,6 +24,7 @@ def get_average_data(simul, p, n, m):
     return (reaches / num, sum_steps / num)
 
 def get_data(n, m, simul):
+    print("{}x{}".format(n, m))
     step = 0.01 # another magic constant
     data = []
     p = 0
