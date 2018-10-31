@@ -1,34 +1,29 @@
-import simulation
-
-simulations_per_data = 50
+from math import sqrt
 
 def reaches_bottom(simul):
-    steps = 0
     while not simul.has_ended():
-        steps += 1
         simul.step()
     
-    for i in range(simul.n):
-        if simul.water_on_pos(simul.m - 1, i):
-            return (1, steps)
-    
-    return (0, steps)
+    for i in range(simul.c):
+        if simul.was_on_pos(i, simul.c - 1):
+            return 1.0
+        
+    return 0.0
 
-def get_average_data(simul, p, n, m):
-    num = 1000 # magic constant, number of runs
+def get_average_data(simul, p, r, c):
+    num = 400 # magic constant, number of runs
     reaches = 0
-    sum_steps = 0
     for i in range(num):
-        res = reaches_bottom(simul(p, n, m))
-        reaches, sum_steps = reaches + res[0], sum_steps + res[1]
-    return (reaches / num, sum_steps / num)
+        res = reaches_bottom(simul(p, r, c))
+        reaches = reaches + res
+    sigma = sqrt((reaches * ((1 - reaches / num) ** 2) + (num - reaches) * ((reaches / num) ** 2)) / num)
+    return (p, reaches / num, 1.96 * sigma / sqrt(num))
 
-def get_data(n, m, simul):
-    print("{}x{}".format(n, m))
-    step = 0.01 # another magic constant
+def get_data(r, c, simul):
+    step = 0.01 # another magic constant, dp
     data = []
     p = 0
     while p <= 1:
-        data.append(get_average_data(simul, p, n, m))
+        data.append(get_average_data(simul, p, r, c))
         p += step
     return data

@@ -1,19 +1,19 @@
 from random import random as rand
 
 class Simulation:
-    def __init__(self, p, n, m):
-        self.n = n
-        self.m = m
-        self.graph = [[rand() < p for i in range(n)] for j in range(m)]
-        self.visited = [[False for i in range(n)] for j in range(m)]
+    def __init__(self, p, r, c):
+        self.r = r
+        self.c = c
+        self.graph = [[rand() < p for i in range(r)] for j in range(c)]
+        self.visited = [[False for i in range(r)] for j in range(c)]
         self.in_queue = []
         
-        for i in range(n):
+        for i in range(r):
             if self.graph[i][0]:
                 self.in_queue.append((i, 0))
                 self.visited[i][0] = True
         
-    def water_on_pos(self, x, y):
+    def was_on_pos(self, x, y):
         return self.visited[x][y]
     
     def has_ended(self):
@@ -22,7 +22,7 @@ class Simulation:
     def step(self):
         new = []
         for x, y in self.in_queue:
-            adj = self.neighbours(x, y)
+            adj = self.neighbors(x, y)
             for X, Y in adj:
                 if not self.visited[X][Y]:
                     self.visited[X][Y] = True
@@ -30,14 +30,14 @@ class Simulation:
         
         self.in_queue = new
     
-    def neighbours(self, x, y):
-        return [] # Example
+    def neighbors(self, x, y):
+        return [] #Example
     
     def get_size(self):
-        return (self.n, self.m) #or rewrite it by yourself
+        return (self.r, self.c) #or rewrite it by yourself
     
 class Downside(Simulation):
-    def neighbours(self, x, y):
+    def neighbors(self, x, y):
         D = [(0, 1), (1, 0), (-1, 0)]
         adj = []
         for dx, dy in D:
